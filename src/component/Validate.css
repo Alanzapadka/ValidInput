@@ -1,0 +1,15 @@
+div{
+    display: flex;
+  align-content: center ;
+   margin-top: 10px;
+   
+}
+input{
+    text-align: center;
+    display: flex;
+    
+}
+label{
+    margin-right: 5px;
+   
+}
