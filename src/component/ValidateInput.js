@@ -1,32 +1,54 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './Validate.css';
+
 const ValidatedInput = ({
 }) => {
+    const firstrender = useRef(true)
 const [Valid, setValid] = useState(true)
 
 const[userError, setUserError] = useState(null)
+const  [Name, setName] = useState(" ")
+useEffect(() => {
+    if(firstrender.current) {
+        firstrender.current = false
+        return
+
+    }
+   
+    setValid(formValidation( ))
 
 
-return(
-    <form >
-        <div>
-            <label>Username:</label>
-            <input type="text" name="username" placeholder="Username" autoComplete="off"  />
-     
-        </div>
-        <div>
-            <label>Email:</label>
-            <input type="text" name="email" placeholder="Email" autoComplete="off"  >
+}, [Name,  ])
+const formValidation = () => {
     
-            </input>
-            </div>
-            <div>
-            <label>Password:</label>
-            <input type="text" name="password" placeholder="password" autoComplete="off" >
- 
-            </input>
-            </div>
-            <button type="submit">Submit</button>
+if( Name  === " ") {
+    setUserError('name cant be blank!')
+    return false
+} else{
+    setUserError(null)
+    return true
+ }
+
+}
+const handleSave = (e) =>{
+e.preventDefault()
+if(Valid){
+    const data = {Name}
+    const jsonData = JSON.stringify(data)
+    console.log(jsonData)
+}
+
+}
+return(
+    <form onSubmit={handleSave} >
+       <input
+       type="text"
+       name="Name"
+       value={Name}
+       onChange={e => setName(e.target.value)}
+       />
+       { userError && <p className="Error">{userError}</p> }
+       <button type="submit" disabled={Valid}>Submit</button>
     </form>
 )}
 
